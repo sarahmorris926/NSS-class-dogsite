@@ -32,14 +32,14 @@ let bowPics = {
 // loop through images and create sections one at a time
 
 
-function populateDogPics() {
-  for (let i=0; i < dogPics.pics.length; i++) {
-    let section = document.createElement("section");
-    section.setAttribute("class", "dog-card card");
-    section.style.backgroundImage = `url(${dogPics.pics[i].url})`;
-    dogContent.appendChild(section);
-  }
+
+for (let i=0; i < dogPics.pics.length; i++) {
+  let section = document.createElement("section");
+  section.setAttribute("class", "dog-card card");
+  section.style.backgroundImage = `url(${dogPics.pics[i].url})`;
+  dogContent.appendChild(section);
 }
+
 
 for (let i=0; i < bowPics.pics.length; i++) {
   let section = document.createElement("section");
@@ -48,40 +48,44 @@ for (let i=0; i < bowPics.pics.length; i++) {
   rainbowContent.appendChild(section);
 }
 
-// Click on a button and make the pictures swap out with something else
-// event listener on each button
+
 monkeyBtn.addEventListener("click", function() {
-  // image change
   monkeyBtn.classList.toggle("monkey");
   let dogCards = document.getElementsByClassName("dog-card");
   for (let i=0; i < dogCards.length; i++) {
-    dogCards[i].style.backgroundImage = "url(img/dog-monkey.jpeg)";
-  // border change
-  dogCards[i].classList.toggle("fancy-border");
+    // image change
+    if (this.classList.contains("monkey")) {
+      dogCards[i].style.backgroundImage = "url(img/dog-monkey.jpeg)";
+    } else {
+      dogCards[i].style.backgroundImage = `url(${dogPics.pics[i].url})`;
+    }
+    // border change
+    dogCards[i].classList.toggle("fancy-border");
   }
   // button text change
   // h1 text change
-  if ( monkeyBtn.classList.contains("monkey") ) {
+  if (this.classList.contains("monkey")) {
     this.innerHTML = "Dogify It!"; // using "this" because "this" is defined as the button in this instance
     dogH1.innerHTML = "Monkey"; // using "dogH1" because we made this a variable that says "document.getElementById("dogH1");" at the beginning
   } else {
     this.innerHTML = "Monkeyfy It!";
     dogH1.innerHTML = "Dog";
   }
-  
-})
-
-
+});
 
 
 horseBtn.addEventListener("click", function() {
-  // image change
   this.classList.toggle("horse");
   let horseCards = document.getElementsByClassName("rainbow-card");
   for (let i=0; i < horseCards.length; i++) {
-    horseCards[i].style.backgroundImage = "url(img/horse-rainbow.jpeg)";
-  // border change
-  horseCards[i].classList.toggle("fancy-border");
+    // image change
+    if (this.classList.contains("horse")) {
+      horseCards[i].style.backgroundImage = "url(img/horse-rainbow.jpeg)";
+    } else {
+      horseCards[i].style.backgroundImage = `url(${bowPics.pics[i].url})`;
+    }
+    // border change
+    horseCards[i].classList.toggle("fancy-border");
   }
   // button text change
   // h1 text change
@@ -92,7 +96,20 @@ horseBtn.addEventListener("click", function() {
     this.innerHTML = "Horsefy It!";
     rainbowH1.innerHTML = "Rainbow";
   }
-  
-})
+});
 
+
+/* 
+How to make this code better:
+- use single responsibility
+  - split duties into individual functions
+    - image change
+    - text change
+    - border change
+
+- need to make DRY code
+  - bows + dogs share exact codes
+  - repetitive if statements in callback
+
+/*
 
