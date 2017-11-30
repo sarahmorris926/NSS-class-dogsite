@@ -111,5 +111,5 @@ How to make this code better:
   - bows + dogs share exact codes
   - repetitive if statements in callback
 
-/*
+*/
 
